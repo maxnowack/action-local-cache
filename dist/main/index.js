@@ -2520,7 +2520,7 @@ async function main() {
         const { cachePath, targetDir, targetPath, options } = (0, getVars_1.getVars)();
         if (await (0, io_util_1.exists)(cachePath)) {
             await (0, io_1.mkdirP)(targetDir);
-            await (0, io_1.mv)(cachePath, targetPath, { force: true });
+            await (0, io_1.cp)(cachePath, targetPath, { recursive: true });
             log_1.default.info(`Cache found and restored to ${options.path}`);
             (0, core_1.setOutput)('cache-hit', true);
         }

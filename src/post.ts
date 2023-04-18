@@ -1,5 +1,5 @@
 import { setFailed } from '@actions/core'
-import { mkdirP, mv } from '@actions/io'
+import { mkdirP, cp } from '@actions/io'
 
 import { getVars } from './lib/getVars'
 import { isErrorLike } from './lib/isErrorLike'
@@ -10,7 +10,7 @@ async function post(): Promise<void> {
     const { cacheDir, targetPath, cachePath } = getVars()
 
     await mkdirP(cacheDir)
-    await mv(targetPath, cachePath, { force: true })
+    await cp(targetPath, cachePath, { recursive: true })
   } catch (error: unknown) {
     log.trace(error)
     setFailed(isErrorLike(error) ? error.message : `unknown error: ${error}`)

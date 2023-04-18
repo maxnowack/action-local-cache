@@ -2518,7 +2518,7 @@ async function post() {
     try {
         const { cacheDir, targetPath, cachePath } = (0, getVars_1.getVars)();
         await (0, io_1.mkdirP)(cacheDir);
-        await (0, io_1.mv)(targetPath, cachePath, { force: true });
+        await (0, io_1.cp)(targetPath, cachePath, { recursive: true });
     }
     catch (error) {
         log_1.default.trace(error);

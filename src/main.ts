@@ -1,5 +1,5 @@
 import { setFailed, setOutput } from '@actions/core'
-import { mkdirP, mv } from '@actions/io/'
+import { mkdirP, cp } from '@actions/io/'
 import { exists } from '@actions/io/lib/io-util'
 
 import { getVars } from './lib/getVars'
@@ -12,7 +12,7 @@ async function main(): Promise<void> {
 
     if (await exists(cachePath)) {
       await mkdirP(targetDir)
-      await mv(cachePath, targetPath, { force: true })
+      await cp(cachePath, targetPath, { recursive: true })
       log.info(`Cache found and restored to ${options.path}`)
       setOutput('cache-hit', true)
     } else {
